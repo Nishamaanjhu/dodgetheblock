@@ -12,12 +12,14 @@ let gameOver = false;
 
 // Key Movement Listener
 document.addEventListener("keydown", function (e) {
-    if (e.code === "ArrowLeft" && playerPosition > 0) {
-        playerPosition -= 20;
-    } else if (e.code === "ArrowRight" && playerPosition < 260) {
-        playerPosition += 20;
+    if (!gameOver) {
+        if (e.code === "ArrowLeft" && playerPosition > 0) {
+            playerPosition -= 20;
+        } else if (e.code === "ArrowRight" && playerPosition < 260) {
+            playerPosition += 20;
+        }
+        player.style.left = playerPosition + "px"; // Apply movement
     }
-    player.style.left = playerPosition + "px";
 });
 
 // Obstacle Movement
