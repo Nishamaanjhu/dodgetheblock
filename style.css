@@ -1,0 +1,51 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+    text-align: center;
+}
+
+/* Game Container */
+#gameContainer {
+    position: relative;
+    margin: 20px auto;
+    width: 300px;
+    height: 500px;
+    background-color: #333;
+    border: 3px solid #fff;
+    overflow: hidden;
+}
+
+/* Player Block */
+#player {
+    position: absolute;
+    bottom: 10px;
+    left: 130px;
+    width: 40px;
+    height: 40px;
+    background-color: #4caf50;
+    border-radius: 8px;
+}
+
+/* Obstacle Block */
+#obstacle {
+    position: absolute;
+    top: -50px;
+    width: 40px;
+    height: 40px;
+    background-color: #ff5722;
+    border-radius: 8px;
+}
+
+/* Scoreboard */
+#scoreBoard {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
