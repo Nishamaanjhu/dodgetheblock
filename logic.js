@@ -6,11 +6,13 @@ const scoreBoard = document.getElementById("scoreBoard");
 
 let playerPosition = 130;
 let obstaclePosition = 0;
-let obstacleSpeed = 5;
+let obstacleSpeed = 7; // Increased speed
 let score = 0;
 let gameOver = false;
+let touchStartX = 0;
+let touchEndX = 0;
 
-// Key Movement Listener
+// Key Movement for Desktop
 document.addEventListener("keydown", function (e) {
     if (!gameOver) {
         if (e.code === "ArrowLeft" && playerPosition > 0) {
@@ -22,10 +24,35 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
+// Touch Controls for Mobile
+gameContainer.addEventListener("touchstart", function (e) {
+    touchStartX = e.changedTouches[0].clientX;
+});
+
+gameContainer.addEventListener("touchend", function (e) {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+});
+
+// Swipe Detection
+function handleSwipe() {
+    if (gameOver) return;
+    
+    // Detect direction
+    if (touchEndX < touchStartX && playerPosition > 0) {
+        // Swipe Left
+        playerPosition -= 20;
+    } else if (touchEndX > touchStartX && playerPosition < 260) {
+        // Swipe Right
+        playerPosition += 20;
+    }
+    player.style.left = playerPosition + "px"; // Apply movement
+}
+
 // Obstacle Movement
 function moveObstacle() {
     if (gameOver) return;
-    
+
     obstaclePosition += obstacleSpeed;
     obstacle.style.top = obstaclePosition + "px";
 
