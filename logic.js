@@ -6,22 +6,29 @@ const scoreBoard = document.getElementById("scoreBoard");
 
 let playerPosition = 130;
 let obstaclePosition = 0;
-let obstacleSpeed = 8; // Faster falling speed
+let obstacleSpeed = 8; // Increased speed for challenge
 let score = 0;
 let gameOver = false;
 let touchStartX = 0;
 let touchEndX = 0;
-const moveDistance = 65; // Fast block movement
+const moveDistance = 165; // Fast movement distance
 
-// Key Movement for Desktop
+// Function to Set Player Position (Boundary Check)
+function setPlayerPosition(newPosition) {
+    if (newPosition >= 0 && newPosition <= 260) {
+        playerPosition = newPosition;
+        player.style.left = `${playerPosition}px`;
+    }
+}
+
+// Desktop Key Movement
 document.addEventListener("keydown", function (e) {
     if (gameOver) return;
-    if (e.code === "ArrowLeft" && playerPosition > 0) {
-        playerPosition -= moveDistance;
-    } else if (e.code === "ArrowRight" && playerPosition < 260) {
-        playerPosition += moveDistance;
+    if (e.code === "ArrowLeft") {
+        setPlayerPosition(playerPosition - moveDistance);
+    } else if (e.code === "ArrowRight") {
+        setPlayerPosition(playerPosition + moveDistance);
     }
-    player.style.left = `${playerPosition}px`;
 });
 
 // Touch Controls for Mobile
@@ -34,19 +41,18 @@ gameContainer.addEventListener("touchend", function (e) {
     handleSwipe();
 });
 
-// Swipe Detection with Fast Movement
+// Handle Swipe Movement
 function handleSwipe() {
     if (gameOver) return;
     const swipeDistance = touchEndX - touchStartX;
 
-    if (swipeDistance < -50 && playerPosition > 0) {
+    if (swipeDistance < -100) {
         // Swipe Left
-        playerPosition -= moveDistance;
-    } else if (swipeDistance > 50 && playerPosition < 260) {
+        setPlayerPosition(playerPosition - moveDistance);
+    } else if (swipeDistance > 100) {
         // Swipe Right
-        playerPosition += moveDistance;
+        setPlayerPosition(playerPosition + moveDistance);
     }
-    player.style.left = `${playerPosition}px`; // Immediate position change
 }
 
 // Obstacle Movement
@@ -86,5 +92,5 @@ function checkCollision() {
     );
 }
 
-// Start the Game
+// Initialize the Game
 moveObstacle();
